@@ -10,6 +10,7 @@ class Album
     @id = details['id'].to_i if details['id']
     @title = details['title']
     @genre = details['genre']
+    @artist_id = details['artist_id'].to_i()
   end
 
   def save()
@@ -30,11 +31,13 @@ class Album
     SqlRunner.run(sql)
   end
 
-  def Album.find_by_id
+  def Album.find_by_id(id)
     sql = "SELECT * FROM albums WHERE id = $1"
-    values = [@id]
-    result = SqlRunner.run( sql, values)
-    return Album.new(result)
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    return nil if result.count == 0
+    album = result[0]
+    return Album.new(album)
   end
 
   def Album.list_all
