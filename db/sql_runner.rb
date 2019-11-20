@@ -1,7 +1,6 @@
 require ('pg')
 
 class SqlRunner
-#BeginEnsureEnd block. We'll use this a lot.
   def self.run(sql, values = [])
     begin
     db = PG.connect({dbname: 'collection', host: 'localhost'})
