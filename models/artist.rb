@@ -44,6 +44,8 @@ class Artist
     return result.map {|artist| Artist.new(artist)}
   end
 
+
+#Returns an empty array indicating nil/0 value for artist_id/@id
   def albums()
     sql = "SELECT * FROM albums WHERE artist_id = $1"
     values = [@id]
