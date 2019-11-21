@@ -14,8 +14,8 @@ class Album
   end
 
   def save()
-    sql = "INSERT INTO albums (title, genre) VALUES ($1, $2) RETURNING id;"
-    values = [@title, @genre]
+    sql = "INSERT INTO albums (title, genre, artist_id) VALUES ($1, $2, $3) RETURNING id;"
+    values = [@title, @genre, @artist_id]
     result = SqlRunner.run(sql, values)
     @id = result[0]['id'].to_i()
   end
@@ -46,9 +46,11 @@ class Album
     return result.map {|album| Album.new(album)}
   end
 
-  def artist_by_album(album)
+
+#This one doesn't work
+  def artist_by_album
     sql = "SELECT * FROM artists WHERE title = $1"
-    values = [title]
+    values = [@title]
     artist = SqlRunner.run(sql, values)[0]
     return Artist.new(artist)
   end
