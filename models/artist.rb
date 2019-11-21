@@ -38,13 +38,12 @@ class Artist
     return Artist.new(artist)
   end
 
+#Brings an array of hashes so enumerate over to bring an array of album objects
   def Artist.list_all
     sql = "SELECT * FROM artists"
     result = SqlRunner.run(sql)
     return result.map {|artist| Artist.new(artist)}
   end
-
-
 
   def albums()
     sql = "SELECT * FROM albums WHERE artist_id = $1"

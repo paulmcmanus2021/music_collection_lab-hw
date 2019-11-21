@@ -40,20 +40,20 @@ class Album
     return Album.new(album)
   end
 
+#Brings an array of hashes so enumerate over to bring an array of album objects
   def Album.list_all
     sql = "SELECT * FROM albums"
     result = SqlRunner.run(sql)
     return result.map {|album| Album.new(album)}
   end
 
-
-#This one doesn't work
-  def artist_by_album
-    sql = "SELECT * FROM artists WHERE title = $1"
-    values = [@title]
+  def artist
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [@artist_id]
     artist = SqlRunner.run(sql, values)[0]
     return Artist.new(artist)
   end
+
 
 
 #
